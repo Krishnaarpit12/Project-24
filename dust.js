@@ -1,0 +1,10 @@
+class Dust{
+    constructor () {
+      
+       
+    }
+    display(){
+       
+
+    }
+}
