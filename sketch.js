@@ -1,46 +1,95 @@
-var ground,object1,object2,object3,ball;
-const Engine = Matter.Engine;
-const World = Matter.World;
-const Bodies = Matter.Bodies;
-const Body = Matter.Body;
+var car, wall;
+var c2, c3;
+var speed, weight;
 
 function setup() {
-	createCanvas(1200, 1000);
+  createCanvas(1600, 400);
 
+  speed = random(55, 90);
+  weight = random(400, 1500);
 
-	engine = Engine.create();
-	world = engine.world;
+  car = createSprite(50, 200, 50, 50);
+  car.shapeColor = color(0);
+  car.velocityX = speed;
 
-	//Create the Bodies Here.
-	ground = new Ground(600,500,1200,10);
-	object1 = new Dustbin(800,490,200,10);
-	object2 = new Dustbin(700,445,10,100);
-	object3 = new Dustbin(900,445,10,100);
-	ball = new Paper(200,445,20,20);
-   
+  c2 = createSprite(50, 100, 50, 50);
+  c2.shapeColor = color(0);
+  c2.velocityX = speed;
 
-	Engine.run(engine);
+  c3 = createSprite(50, 300, 50, 50);
+  c3.shapeColor = color(0);
+  c3.velocityX = speed;
+
+  wall = createSprite(1400, 200, 60, 300);
+  wall.shapeColor =color(80, 80, 80);
+
+  
   
 }
-
 
 function draw() {
-  rectMode(CENTER);
-  background(0);
-  ground.display();
-  object1.display();
-  object2.display();
-  object3.display();
-  ball.display();
+  background(255, 255, 255);  
   
- 
+  if(wall.x - car.x < (car.width + wall.width)/2)
+  {
+    car.velocityX = 0;
+    var deformation = 0.5 * weight * speed* speed/22509;
+    if(deformation>180)
+    {
+      car.shapeColor = color(255, 0, 0);
+    }
+
+    if(deformation<180 && deformation>100)
+    {
+      car.shapeColor = color(230, 230, 0);
+    }
+
+    if(deformation<100)
+    {
+      car.shapeColor = color(0, 255, 0);
+    }
+    
+  }
+  if(wall.x - c2.x < (c2.width + wall.width)/2)
+  {
+    c2.velocityX = 0;
+    var deformation = 0.5 * weight * speed* speed/22509;
+    if(deformation>180)
+    {
+      c2.shapeColor = color(255, 0, 0);
+    }
+
+    if(deformation<180 && deformation>100)
+    {
+      c2.shapeColor = color(230, 230, 0);
+    }
+
+    if(deformation<100)
+    {
+      c2.shapeColor = color(0, 255, 0);
+    }
+    
+  }
+  if(wall.x - c3.x < (c3.width + wall.width)/2)
+  {
+    c3.velocityX = 0;
+    var deformation = 0.5 * weight * speed* speed/22509;
+    if(deformation>180)
+    {
+      c3.shapeColor = color(255, 0, 0);
+    }
+
+    if(deformation<180 && deformation>100)
+    {
+      c3.shapeColor = color(230, 230, 0);
+    }
+
+    if(deformation<100)
+    {
+      c3.shapeColor = color(0, 255, 0);
+    }
+    
+  }
+
+  drawSprites();
 }
-
-function keyPressed(){
-	if(keyCode === UP_ARROW){
-		Matter.Body.applyForce(ball.body,ball.body.position,{x:420,y:-900})
-	}
-}
-
-
-
